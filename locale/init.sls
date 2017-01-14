@@ -18,8 +18,20 @@ locale_present_{{ locale|replace('.', '_')|replace(' ', '_') }}:
     - name: {{ locale }}
 {%- endfor %}
 
+{% if default is mapping %}
 locale_default:
   locale.system:
     - name: {{ default.name }}
     - require:
       - locale: locale_present_{{ default.requires|replace('.', '_')|replace(' ', '_') }}
+{% endif %}
+
+{%- set conf = salt['pillar.get']('locale:conf', {}) %}
+{%- if conf is iterable %}
+locale-conf-is-setup:
+  file.managed:
+    - name: /etc/locale.conf
+    - contents_pillar: locale:conf
+{% else %}
+{% endif %}
+
