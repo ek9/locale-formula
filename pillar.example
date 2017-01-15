@@ -1,7 +1,17 @@
 locale:
+  # control which locales are enabled
   present:
     - "en_US.UTF-8 UTF-8"
     - "de_DE.UTF-8 UTF-8"
+    - "en_DK.UTF-8 UTF-8"
+
+  # control system locale default settings (/etc/locale.conf)
+  conf:
+    - "LANG=en_US.UTF-8"
+    - "LC_COLLATE=C"
+    - "LC_MONETARY=de_DE.UTF-8"
+    - "LC_TIME=en_DK.UTF-8"
+
   default:
     name: 'en_US.UTF-8' # Note: On debian systems don't write the
                         # second 'UTF-8' here or you will experience
@@ -9,3 +19,4 @@ locale:
                         # LookupError: unknown encoding: utf_8_utf_8
                         # Restart the minion after you corrected this!
     requires: 'en_US.UTF-8 UTF-8'
+
